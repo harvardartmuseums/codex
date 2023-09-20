@@ -1,0 +1,231 @@
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 0, 0);
+}
+
+#pagenum {
+  margin: 0 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.scene {
+  width: 45%;
+  height: 90%;
+  margin: 2% 5% 5% 50%;
+  perspective: 1000px;
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+p, button {
+  color: #4d4d4d;
+  cursor: pointer;
+  font-family: arial;
+  padding: 0.5rem;
+  clear: both;
+}
+
+.reset {
+  margin-left: -20%;
+  padding: 2rem;
+}
+
+.page {
+  cursor: pointer;
+  position: absolute;
+  color: black;
+  width: 100%;
+  height: 100%;
+  transition: 1.5s transform;
+  transform: translateZ(-1px);
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.translated {
+  opacity: 0;
+  z-index: 3;
+  position: absolute;
+  /*   background-color: #cdbfa7; */
+  transition: 0.5s opacity;
+  width: 80%;
+  height: 70%;
+  top: 15%;
+  left: 10%;
+}
+
+.translated p {
+  color: #ffffff;
+  line-height: 30px;
+  letter-spacing: 1px;
+  font-size: 22px;
+  display: block;
+  overflow: hidden;
+  text-indent: unset;
+}
+
+.translated p span {
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+
+.chosen .translated {
+  transition: 0.5s opacity;
+  transition-delay: 3s;
+  opacity: 1;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+img.animated {
+  width: 80%;
+  height: auto;
+  margin: 6% 12%;
+}
+
+img.overlay {
+  position: absolute;
+  top: 0;
+}
+
+.front,
+.back {
+  position: absolute;
+  background-color: white;
+  aspect-ratio: 3/3.39;
+  max-height: 50vw;
+  max-width: 50vh;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.chosen img {
+  transition: 0.5s filter;
+  transition-delay: 2s;
+  filter: blur(4px) brightness(70%);
+}
+
+.page.active {
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.flipped {
+  transform: translateZ(0) rotateY(-180deg);
+  transform-style: preserve-3d;
+  z-index: 0;
+}
+
+.page.left {
+  z-index: 1;
+  backface-visibility: visible;
+  transform-style: preserve-3d;
+}
+
+p {
+  margin: 0 0 0.1em;
+  text-indent: 1em;
+}
+
+.qr {
+  margin: 50px auto;
+  max-width: 50%;
+}
+
+.qr img {
+  display: block;
+}
+
+.chosen .translated span {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+}
+.chosen .translated span:nth-child(1) {
+  animation: fade-in 0.8s 4.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(2) {
+  animation: fade-in 0.8s 4.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(3) {
+  animation: fade-in 0.8s 4.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(4) {
+  animation: fade-in 0.8s 4.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(5) {
+  animation: fade-in 0.8s 4.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(6) {
+  animation: fade-in 0.8s 4.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(7) {
+  animation: fade-in 0.8s 4.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(8) {
+  animation: fade-in 0.8s 4.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(9) {
+  animation: fade-in 0.8s 4.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(10) {
+  animation: fade-in 0.8s 5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(11) {
+  animation: fade-in 0.8s 5.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(12) {
+  animation: fade-in 0.8s 5.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(13) {
+  animation: fade-in 0.8s 5.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(14) {
+  animation: fade-in 0.8s 5.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(15) {
+  animation: fade-in 0.8s 5.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(16) {
+  animation: fade-in 0.8s 5.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(17) {
+  animation: fade-in 0.8s 5.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+.chosen .translated span:nth-child(18) {
+  animation: fade-in 0.8s 5.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+/* iPads (portrait) ----------- */
