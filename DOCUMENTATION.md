@@ -1,8 +1,3 @@
-# CodePen Export with Build Process
-_Transform raw code into a browser-ready preview... offline_
-
-This package contains all of the original code ([src/](./src/)), and a custom build script with processors. You'll be able to edit and build for a local CodePen-like experience.
-
 ## Installation
 
 Ensure you have a recent version of [node & npm](https://nodejs.org/en/download/) or [yarn](https://yarnpkg.com/en/docs/install) installed.
@@ -14,6 +9,7 @@ Install all the necessary packages:
 ```
 npm install
 ```
+Note: some dependencies were failing unless running node 12.18.0
 
 ## Build
 
