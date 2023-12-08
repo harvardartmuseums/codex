@@ -1,3 +1,46 @@
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralStd-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralStd-RegularItalic.otf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralBP-HarvardDemi.otf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralBP-HarvardDemiItalic.otf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralStd-Medium.otf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeutralStd";
+  src: url("fonts/NeutralStd-MediumItalic.otf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+
 :root {
   --duration: .8s;
   --delay-1: .2s;
@@ -16,6 +59,7 @@ body {
   height: 100%;
   transform:translate3d(0,0,0);
   background-color: #2d2d2d;
+  font-family: "NeutralStd", sans-serif;
 }
 
 .intro{
@@ -23,6 +67,7 @@ body {
  color:white;
  display:block;
  margin: 40px auto 0 auto;
+ font-family: "NeutralStd", sans-serif;
 }
 
 #pagenum{
@@ -51,7 +96,6 @@ h1 {
 p, button{
   color: #4d4d4d;
   cursor: pointer;
-  font-family: arial;
   padding: .5rem;
   clear:both;
 }
@@ -102,14 +146,15 @@ p, button{
   height: 70%;
   top: 15%;
   left: 10%;
+  font-weight: 500;
 }
 
 .translated p {
   color: #49372c;
   text-shadow: #e1ca8b 4px 0 8px;
-  line-height: 30px;
+  line-height: calc(13px + 1.2vw);
   letter-spacing: 1px;
-  font-size: 22px;
+  font-size: calc(10px + .9vw);
   display:block;
   overflow:hidden;
   text-indent: unset;
@@ -182,8 +227,12 @@ p, button{
 
 .front.chosen:after, .back.chosen:after{
   bottom: 0;
-  background: rgb(225,202,139);
-background: radial-gradient(circle, #d2c4a7 40%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, #d2c4a7 35%, rgba(255, 255, 255, 0)72%);
+  // background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #d2c4a7 25%, rgba(255,255,255,0) 100%);
+  width: 90%;
+  height: 85%;
+  left: 2%;
+  top: 5%;
 }
 
 img {
