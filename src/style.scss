@@ -7,39 +7,52 @@
 
 @font-face {
   font-family: "NeutralStd";
-  src: url("fonts/NeutralStd-RegularItalic.otf") format("truetype");
+  src: url("fonts/NeutralStd-RegularItalic.otf") format("opentype");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: "NeutralStd";
-  src: url("fonts/NeutralBP-HarvardDemi.otf") format("truetype");
+  src: url("fonts/NeutralBP-HarvardDemi.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NeutralStd";
-  src: url("fonts/NeutralBP-HarvardDemiItalic.otf") format("truetype");
+  src: url("fonts/NeutralBP-HarvardDemiItalic.otf") format("opentype");
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
   font-family: "NeutralStd";
-  src: url("fonts/NeutralStd-Medium.otf") format("truetype");
+  src: url("fonts/NeutralStd-Medium.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NeutralStd";
-  src: url("fonts/NeutralStd-MediumItalic.otf") format("truetype");
+  src: url("fonts/NeutralStd-MediumItalic.otf") format("opentype");
   font-weight: 600;
   font-style: italic;
 }
 
+@font-face {
+  font-family: "Kaushan Script";
+  src: url("fonts/KaushanScript-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merienda";
+  src: url("fonts/Merienda-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 
 :root {
   --duration: .8s;
@@ -66,7 +79,7 @@ body {
  max-width: 450px;
  color:white;
  display:block;
- margin: 40px auto 0 auto;
+ margin: 150px auto 0 auto;
  font-family: "NeutralStd", sans-serif;
 }
 
@@ -80,9 +93,10 @@ h1 {
 
 .scene {
   width: 45%;
-  height: 90%;
+  height: 70%;
   margin: 2% 5% 5% 50%;
-  perspective: 1000px;
+  // perspective: 3000px;
+  perspective: calc(70vw);
 }
 
 .book {
@@ -98,6 +112,17 @@ p, button{
   cursor: pointer;
   padding: .5rem;
   clear:both;
+  line-height:22px;
+}
+
+#random{
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
 .reset{
@@ -150,6 +175,8 @@ p, button{
 }
 
 .translated p {
+  font-family: 'Merienda', cursive;
+  font-weight: 400;
   color: #49372c;
   text-shadow: #e1ca8b 4px 0 8px;
   line-height: calc(13px + 1.2vw);
@@ -158,8 +185,16 @@ p, button{
   display:block;
   overflow:hidden;
   text-indent: unset;
+}
+
+.back .translated p{
+  margin: 20px 0 20px 70px;
   width: 75%;
-  margin: 20px auto;
+}
+
+.front .translated p{
+  margin: 20px 0 20px 0px;
+  width: 75%;
 }
 
 .translated p span {
@@ -222,18 +257,37 @@ p, button{
 }
 
 .front.chosen:after, .back.chosen:after{
-  opacity:90%;
+  opacity: 90%;
 }
 
-.front.chosen:after, .back.chosen:after{
-  bottom: 0;
-  background: radial-gradient(circle, #d2c4a7 35%, rgba(255, 255, 255, 0)72%);
-  // background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #d2c4a7 25%, rgba(255,255,255,0) 100%);
-  width: 90%;
-  height: 85%;
-  left: 2%;
-  top: 5%;
+.back.chosen:after{
+  // bottom: 0;
+  // background: radial-gradient(circle, #d2c4a7 35%, rgba(255, 255, 255, 0)72%);
+  // background-color: #d2c4a7;
+  // width: 95%;
+  // height: 110%;
+  // left: 2%;
+  // top: -5%;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%,#d2c4a7 15%, #d2c4a7 75%, rgba(255, 255, 255, 0) 100%);
+    height: 90%;
+    top: 4%;
+    width: 95%;
+    left: 10%;
 }
+
+.front.chosen:after{
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%,#d2c4a7 15%, #d2c4a7 75%, rgba(255, 255, 255, 0) 100%);
+    height: 90%;
+    top: 4%;
+    width: 95%;
+    left: -8%;
+}
+
+
+
+// .front.chosen img, .back.chosen img{
+//   filter: brightness(150%);
+// }
 
 img {
   width:100%;
@@ -252,8 +306,8 @@ img.overlay{
 .front,
 .back {
   position: absolute;
-  background-color: white;
-  aspect-ratio: 3 / 3.39;
+  // background-color: white;
+  aspect-ratio: 3 / 3.59;
   max-height: 50vw;
   max-width: 50vh;
   box-sizing: border-box;
