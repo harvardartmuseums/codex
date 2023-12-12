@@ -46,6 +46,12 @@
   font-weight: 400;
   font-style: normal; }
 
+@font-face {
+  font-family: "Fondamento";
+  src: url("fonts/Fondamento-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
 :root {
   --duration: .8s;
   --delay-1: .2s;
@@ -144,29 +150,29 @@ p, button {
   transition: .5s opacity;
   width: 80%;
   height: 70%;
-  top: 15%;
+  top: 10%;
   left: 10%;
   font-weight: 500; }
 
 .translated p {
-  font-family: 'Merienda', cursive;
+  font-family: 'Fondamento', cursive;
   font-weight: 400;
   color: #49372c;
   text-shadow: #e1ca8b 4px 0 8px;
-  line-height: calc(13px + 1.2vw);
+  line-height: calc(1px + 2.45vw);
   letter-spacing: 1px;
-  font-size: calc(10px + .9vw);
+  font-size: calc(4px + 1.45vw);
   display: block;
   overflow: hidden;
   text-indent: unset; }
 
 .back .translated p {
-  margin: 20px 0 20px 70px;
+  margin: 0px 0 20px 4vw;
   width: 75%; }
 
 .front .translated p {
-  margin: 20px 0 20px 0px;
-  width: 75%; }
+  margin: 0px 0 20px 0px;
+  width: 85%; }
 
 .translated p span {
   display: block;

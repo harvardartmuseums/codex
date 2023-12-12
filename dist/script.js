@@ -1,37 +1,12 @@
-var translations = [
-  '<p>The Gospel of the lots of Mary, the mother of the Lord Jesus Christ, she to whom Gabriel the archangel brought the good news. He who will go forward with his whole heart will obtain what he seeks. Only do not be of two minds.</p>',
-  '<p>O human, with their tongues they love you greatly, but their heart is far from you.</p>',
-  '<p>And you know what happened to you before today, that you almost lost your life. In any case they certainly lie in wait for you.</p>',
-  '<p>Be happy, rejoice, be glad and glorify God for what has happened to you. Because it was only a little while ago that you were far from home,</p>',
-  '<p>then you suffered loss and were in disgrace and danger. But God took pity on you.</p>',
-  '<p>Behold, you have been saved, do not turn to commit sin, so that even worse matters do not happen to you.</p>',
-  '<p>Do you not remember what has happened to you before today? And God saved you from everything. Do not return to this matter.</p>',
-  '<p>It is you alone who brings upon yourself a great, difficult burden. This matter that you want to do, its time has not yet come. </p>',
-  '<p>Endure a little longer and you will see the confidence in God that will reach you.</p>',
-  '<p>They will trust you in this matter. Be brave and endure, for the time is hastening for you. </p>',
-  '<p>Do not be distressed nor despair nor grieve, because you have a strong hope through God.</p>',
-  '<p>The Lord God has heard your request and he will send his angel and he will walk before you.</p>',
-  '<p>And you will see the confidence in God that will reach you. Only do not become careless, saying “this thing will not happen.” Yes, it will happen.</p>',
-  '<p>You know, O human, that you did your utmost again. You did not gain anything but loss, dispute, and war.</p>',
-  '<p>But if you are a little patient, the matter will prosper through the God of Abraham, Isaac, and Jacob.</p>',
-  '<p>Fight for yourself in what has happened to you, because it is a human evil. Your enemies are not far from you. </p>',
-  '<p>They have plotted against you again due to the evil that is in their hearts. But trust in God and walk in his commandments forever.</p>',
-  '<p>Get up and go immediately. Do not delay. For this is the moment that God appointed for you. </p>',
-  '<p>They have simply accused you to the point of death, but be patient just a little.</p>',
-  '<p>The peace of God will be with you and you will be saved from the affliction that has come upon you.</p>',
-  '<p>Fulfill what you promised, because God does not tempt anyone. It is you alone who are disobedient.</p>',
-  '<p>If you decide to do this thing, do it. Do not be careless, because God established this. It is you alone who turns back.</p>',
- '<p>No – there is no evil that will reach you. Trust in God and do not be of two minds.</p>',
- '<p>Do not let go of the faith in your heart. You have God as a helper. He will guide you on the path on which you will go.</p>',
- '<p>At all events, do not doubt because nothing is impossible for God.</p>'
-];
-var interval = [1,10];
+import translations from './translations.js';
+
+var interval = [1,20];
 var rndInt = 0;
 
 var toggle = document.getElementsByClassName("front");
 
 for (var i = 0; i < toggle.length; i++) {
-   children = toggle[i].querySelector('.translated');
+   var children = toggle[i].querySelector('.translated');
 
   const translateImage = new Image();
   translateImage.src = "images/translation.png";
