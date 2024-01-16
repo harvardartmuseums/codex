@@ -54,8 +54,8 @@
 
 :root {
   --duration: .8s;
-  --delay-1: .2s;
-  --delay-2: 2.8s; }
+  --delay-1: 1.5s;
+  --delay-2: 4.5s; }
 
 html {
   height: 100%;
@@ -69,12 +69,27 @@ body {
   background-color: #2d2d2d;
   font-family: "NeutralStd", sans-serif; }
 
+.hide {
+  display: none; }
+
 .intro {
-  max-width: 450px;
+  max-width: 750px;
+  text-align: center;
+  height: 150px;
   color: white;
   display: block;
-  margin: 150px auto 0 auto;
-  font-family: "NeutralStd", sans-serif; }
+  margin: 0 auto;
+  padding-top: 30px;
+  font-family: "NeutralStd", sans-serif;
+  font-size: 25px;
+  line-height: 40px;
+  opacity: 1;
+  color: #dfdfdf;
+  transition: 1s opacity 4s; }
+
+.intro.started {
+  opacity: 0;
+  transition: 1s opacity 0s; }
 
 #pagenum {
   margin: 0 5px; }
@@ -85,8 +100,9 @@ h1 {
 .scene {
   width: 45%;
   height: 70%;
-  margin: 2% 5% 5% 50%;
-  perspective: calc(70vw); }
+  margin: 0 5% 5% 50%;
+  perspective: calc(85vw);
+  transition: 1s margin; }
 
 .book {
   position: relative;
@@ -96,7 +112,6 @@ h1 {
 
 p, button {
   color: #4d4d4d;
-  cursor: pointer;
   padding: .5rem;
   clear: both;
   line-height: 22px; }
@@ -107,8 +122,16 @@ p, button {
   border: none;
   padding: 0;
   font: inherit;
-  cursor: pointer;
-  outline: inherit; }
+  outline: inherit;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 15%;
+  left: 0%;
+  z-index: 4000; }
+
+button {
+  cursor: pointer; }
 
 .reset {
   margin-left: -20%;
@@ -130,17 +153,23 @@ p, button {
 .translate {
   position: absolute;
   z-index: 1000;
-  bottom: 20px;
+  bottom: 5vh;
   right: 25px;
-  width: 30px;
+  width: 4.5vh;
   height: auto;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 5px;
-  border-radius: 10px; }
+  border-radius: 10px;
+  opacity: 0; }
   .translate:after {
     display: block;
     content: 'test';
     opacity: 0; }
+
+.active .translate {
+  transition: .5s opacity;
+  transition-delay: var(--delay-2);
+  opacity: 1; }
 
 .translated {
   opacity: 0;
@@ -159,15 +188,15 @@ p, button {
   font-weight: 400;
   color: #49372c;
   text-shadow: #e1ca8b 4px 0 8px;
-  line-height: calc(1px + 2.45vw);
+  line-height: Min(5.5vh, 2.5vw);
   letter-spacing: 1px;
-  font-size: calc(4px + 1.45vw);
+  font-size: Min(calc(4px + 3.5vh), 4vw);
   display: block;
   overflow: hidden;
   text-indent: unset; }
 
 .back .translated p {
-  margin: 0px 0 20px 4vw;
+  margin: 0px 0 20px 3vw;
   width: 75%; }
 
 .front .translated p {
@@ -195,7 +224,7 @@ p, button {
 
 .front.chosen.T .translated {
   transition: .5s opacity;
-  transition-delay: var(--delay-1);
+  transition-delay: var(--delay-2);
   opacity: 1; }
 
 .front:after, .back:after {
@@ -209,36 +238,29 @@ p, button {
 
 .back:after {
   transition: 1s opacity;
-  transition-delay: 3s;
+  transition-delay: 1s;
   opacity: 0; }
 
 .front:after {
   transition: 1s opacity;
-  transition-delay: 5.5s;
+  transition-delay: 4s;
   opacity: 0; }
 
 .back.T:after {
-  transition-delay: 0s; }
-
-.front.T:after {
-  transition-delay: 3s; }
-
-.front.chosen:after, .back.chosen:after {
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #d2c4a7 15%, #d2c4a7 75%, rgba(255, 255, 255, 0) 100%);
+  height: 90%;
+  top: 4%;
+  width: 95%;
+  left: 10%;
   opacity: 90%; }
 
-.back.chosen:after {
+.front.T:after {
   background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #d2c4a7 15%, #d2c4a7 75%, rgba(255, 255, 255, 0) 100%);
   height: 90%;
   top: 4%;
   width: 95%;
-  left: 10%; }
-
-.front.chosen:after {
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #d2c4a7 15%, #d2c4a7 75%, rgba(255, 255, 255, 0) 100%);
-  height: 90%;
-  top: 4%;
-  width: 95%;
-  left: -8%; }
+  left: -8%;
+  opacity: 90%; }
 
 img {
   width: 100%;
@@ -261,7 +283,17 @@ img.overlay {
   max-height: 50vw;
   max-width: 50vh;
   box-sizing: border-box;
-  backface-visibility: hidden; }
+  backface-visibility: hidden;
+  transition: 2s top, 5s max-height;
+  top: 0%; }
+
+.scene.small {
+  margin: 0 5% 5% 42%; }
+
+.scene.small .front, .scene.small .back {
+  max-height: 288px;
+  top: 30%;
+  transition: 3s top 2s, 5s max-height; }
 
 .back {
   transform: rotateY(180deg); }

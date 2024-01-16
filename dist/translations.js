@@ -1,5 +1,6 @@
 export const translations = [
-    '<p>The Gospel of the lots of Mary, the mother of the Lord Jesus Christ, she to whom Gabriel the archangel brought the good news. He who will go forward with his whole heart will obtain what he seeks. Only do not be of two minds.</p>',
+    '<p>The Gospel of the lots of Mary, the mother of the Lord Jesus Christ, she to whom Gabriel the archangel brought the good news.</p>', 
+    '<p>He who will go forward with his whole heart will obtain what he seeks. Only do not be of two minds.</p>',
     '<p>O human, with their tongues they love you greatly, but their heart is far from you.</p>',
     '<p>And you know what happened to you before today, that you almost lost your life. In any case they certainly lie in wait for you.</p>',
     '<p>Be happy, rejoice, be glad and glorify God for what has happened to you. Because it was only a little while ago that you were far from home,</p>',
@@ -38,8 +39,7 @@ export const translations = [
   '<p>for God has received your request about all difficulties that you endured. They are a concern for God.</p>',
   '<p>This is a victory from God. But be patient and endure until the time comes and you receive the hope of your salvation.</p>', 
 '<p>The crown is ready for you, but they oppose you. Do not be led astray by people.</p>',
-'<p>A little longer and you will receive the fulfillment of your life. For the Lord is your mediator.</p>', 
-'<p>Endure, and you will receive the hope of your salvation, because the power of God is greater than that of humans. And they will marvel at you.</p>',
+'<p>A little longer and you will receive the fulfillment of your life. For the Lord is your mediator. Endure, and you will receive the hope of your salvation, because the power of God is greater than that of humans. And they will marvel at you.</p>',
 '<p>Behold, the difficult time passed for you. Behold, the hour of rest has come upon you. Simply be brave.</p>', 
 '<p>You will see the confidence in God that will reach you. And he will send the angel of peace and will guide you and give you rest.</p>',
 '<p>Just as another time, they beguile you.</p>',

@@ -1,9 +1,11 @@
 import translations from './translations.js';
 
-var interval = [1,20];
+var interval = [2,37];
 var rndInt = 0;
 
 var toggle = document.getElementsByClassName("front");
+var intro = document.getElementById('intro');
+var book = document.getElementById('scene');
 
 for (var i = 0; i < toggle.length; i++) {
    var children = toggle[i].querySelector('.translated');
@@ -17,6 +19,7 @@ for (var i = 0; i < toggle.length; i++) {
    }
 }
 
+// pick random number
 async function choose(){
   var min = interval[0];
   var max = interval[1];
@@ -41,14 +44,13 @@ async function choose(){
 choose();
 
 
+var pageText = document.getElementsByClassName('translated');
 
-// placeholder content
-var placeholder = document.getElementsByClassName('translated');
-
-for(var i = 0; i < placeholder.length; i++){
-	placeholder[i].innerHTML +=  translations[i];
+// place each word in span for page load animation
+for(var i = 0; i < pageText.length; i++){
+	pageText[i].innerHTML +=  translations[i];
   
-  let str = placeholder[i].querySelector('p').textContent;
+  let str = pageText[i].querySelector('p').textContent;
   
   const myArr = str.split(" ");
 
@@ -56,51 +58,70 @@ for(var i = 0; i < placeholder.length; i++){
 
   myArr.forEach(words => broken+=('<span>'+words+'</span>'));
 
-  function updateOrg(x){
-    placeholder[i].innerHTML = '<p>'+x+'</p>';
+  function updateWord(x){
+    pageText[i].innerHTML = '<p>'+x+'</p>';
   }
   
-  updateOrg(broken);
+  updateWord(broken);
 }
 
 var currentPage = 0;
 var randomBtn = document.getElementById('random');
+var resetBtn = document.getElementById('reset');
 var pages = document.getElementById('book').children;
 var active = document.getElementsByClassName('active');
 var chosen = document.getElementsByClassName('chosen');
 
 //  make previous page clickable and avoid jitter on mobile while flip finishes
-function setPrev(){
+function setPrev(time){
   setTimeout(() => {
     $('.active').prev().addClass('left');
-    }, 2000);
+    // 'inactive' currently here for first page click. Need to refine.
+    inactive();
+    }, time);
 }
 
-randomBtn.addEventListener("click", function(){random(setPrev)});
+function start(){
+  intro.classList.add('started');
+  book.classList.remove('small');
+  randomBtn.classList.add('hide');
+}
 
-function random(after) {
 
-  //   current open page (index of section with active) 
+// reset book to closed
+function reset(){
+  intro.classList.remove('started');
+  book.classList.add('small');
+  randomBtn.classList.remove('hide');
+
   var current = document.getElementsByClassName('active')[0];
   var activePage = Array.from(document.getElementsByClassName('page'))
     .indexOf(current);
-  
-  //   for single pages
-  // var numOpen = rndInt %2 == 0 ? (rndInt/2) : ((rndInt+1)/2);
-  
-  //   for 2 page spread
-  var numOpen = rndInt;
+
+  setTimeout(() => {
+    firstPage();
+    }, Number(Math.ceil(((1 + activePage) / 8)) *1000));
+}
+
+randomBtn.addEventListener("click", function(){random(rndInt, setPrev), start();});
+
+// commented out until manual reset button is placed
+// resetBtn.addEventListener("click", function(){random('0', setPrev); reset();});
+
+function random(num, after) {
+  var current = document.getElementsByClassName('active')[0];
+  var activePage = Array.from(document.getElementsByClassName('page'))
+    .indexOf(current);
+
+  var numOpen = num;
   
   var open = pages.item(numOpen);
   let button = document.getElementById('pagenum');
   var selected = open.getElementsByClassName('back')[0];
   var selectedSecond = pages.item(numOpen+1).getElementsByClassName('front')[0];
   
-  
   if (activePage != numOpen){
     if (chosen[0]){chosen[0].classList.remove('chosen');}
-
-    // button.textContent = rndInt;
 
     //   move pages on a delay to flip through book
     let timer = ms => new Promise(res => setTimeout(res, ms))
@@ -115,14 +136,19 @@ function random(after) {
         } else{
           prevPage('multi');
         }
-         await timer(200);
+         await timer(150);
       }
-      selected.classList.add('chosen');
-      selectedSecond.classList.add('chosen');
+
+      if (num != 0) {
+        selected.classList.add('chosen','T');
+        selectedSecond.classList.add('chosen','T');
+      }else{
+
+      }
     }
   
     multiflip();
-    after();
+    after(8000);
   }
   
   choose();
@@ -133,8 +159,13 @@ function reveal(){
   var pageone = event.target.parentNode;
   var pagetwo = document.querySelector(".left .back");
 
-  pageone.classList.add('chosen','T');
-  pagetwo.classList.add('chosen','T');
+  if (pageone.classList.contains('T')){
+    pageone.classList.remove('chosen','T');
+    pagetwo.classList.remove('chosen','T');
+  }else{
+    pageone.classList.add('chosen','T');
+    pagetwo.classList.add('chosen','T');
+  }
 }
 
 $('#scene')
@@ -147,11 +178,26 @@ $(".translate").click(function(event){
   reveal();
 });
 
+// reset book after inactivity (in seconds)
+var windowClick = timer();
+var inactivity = 60;
+function timer() {
+  if (intro.classList.contains('started')){
+    return setInterval(() => (reset(), random('0', setPrev)), inactivity*1000);
+  }
+}
+function inactive() {
+  clearInterval(windowClick);
+  windowClick = timer();
+}
+book.addEventListener("click", function(){inactive();});
+
 // functions for mobile swiping
 var hammertime = new Hammer($('.book')[0]);
 hammertime.on("swipeleft", nextPage);
 hammertime.on("swiperight", prevPage);
 
+// legacy jQuery from book page turning functions
 function prevPage(x) {
   $('.page div')
   .removeClass('chosen T')
@@ -163,7 +209,7 @@ function prevPage(x) {
     .siblings('.page')
     .removeClass('active');
    if (x != 'multi'){
-     setPrev();
+     setPrev(2000);
   }
 }
 function nextPage(x) {
@@ -179,7 +225,7 @@ function nextPage(x) {
     .addClass('active')
     .siblings('');  
   if (x != 'multi'){
-     setPrev();
+     setPrev(2000);
   }
 }
 
