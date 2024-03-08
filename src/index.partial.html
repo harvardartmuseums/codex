@@ -1,9 +1,9 @@
-<p id="intro" class="intro">Conider a decision you are making. <br>
-  To consult the oracle, tap the book to reveal its advice.<span id="pagenum"></span></p>
-
+<p id="intro" class="intro"><span class="question">Do you have a decision you need to make?</span>  <br><br>
+  Think about your question. <br><br>Then, consult the oracle by touching the book to reveal its advice.<span id="pagenum"></span></p>
+  <p id="newQ" class="outro"><span class="question">Do you have another question? </span><br><br><button id="newRndm" class="random">Ask for advice on another matter</button></p>
 <!-- <button id="reset"></button> -->
 
-<button id="random"></button>
+<button id="random" class="random"></button>
 <div id="scene" class="scene small">
   <!-- <p id="reset" class="reset">back to beginning</p> -->
     <article id="book" class="book">
@@ -211,6 +211,7 @@
       <img src="images/codex_38.png" />
       </div>
       <div class="back">
+      <div class="translated"></div>
       <img src="images/codex_39.png" />
       </div>    
   </section>
@@ -400,19 +401,18 @@
     <img src="images/codex_76.png" />
     </div>
     <div class="back">
-    <!-- <div class="translated"></div> -->
-    <img src="images/codex_77.png" />
+      <img src="images/codex_endpage.png" />
     </div>    
 </section>
-    <section class="page">
-    <div class="front">
+    <section class="page last">
+    <div class="front cover">
       <img src="images/codex_inside_back_cover.png" />
     </div>
     <div class="back">
       <img src="images/codex_back_cover.png" />
     </div>    
   </section>
-  <section class="page">
+  <section id="last" class="page">
     <div class="front">
     </div>
     <div class="back">
@@ -420,3 +420,6 @@
   </section>
 </article>
 </div>
+
+<p id="outro" class="outro">
+  To explore the book, tap to turn the pages<br> and use the translation icon to view the text in English.</p>

@@ -4,14 +4,18 @@ var interval = [2,37];
 var rndInt = 0;
 
 var toggle = document.getElementsByClassName("front");
+var toggleback = document.getElementsByClassName("back");
+var newRndm = document.getElementById('newRndm');
 var intro = document.getElementById('intro');
+var outro = document.getElementById('outro');
+var newQ = document.getElementById('newQ');
 var book = document.getElementById('scene');
 
 for (var i = 0; i < toggle.length; i++) {
    var children = toggle[i].querySelector('.translated');
 
   const translateImage = new Image();
-  translateImage.src = "images/translation.png";
+  translateImage.src = "images/translate_button.png";
   translateImage.classList.add("translate");
    
    if (children != null){
@@ -42,6 +46,16 @@ async function choose(){
 };
 
 choose();
+
+// add tab index to pages
+function tabs(page){
+  for(var i = 0; i < page.length; i++){
+    page[i].setAttribute("tabindex", "0");
+    page[i].setAttribute("disabled", "disabled");
+  }
+}
+tabs(toggle);
+tabs(toggleback);
 
 
 var pageText = document.getElementsByClassName('translated');
@@ -76,21 +90,27 @@ var chosen = document.getElementsByClassName('chosen');
 function setPrev(time){
   setTimeout(() => {
     $('.active').prev().addClass('left');
-    // 'inactive' currently here for first page click. Need to refine.
-    inactive();
+    // 'activity' currently here for first page click. Need to refine.
+    activity();
     }, time);
 }
 
-function start(){
+function start(time){
   intro.classList.add('started');
-  book.classList.remove('small');
   randomBtn.classList.add('hide');
+  setTimeout(() => {
+    outro.classList.add('started');
+    newQ.classList.add('started');
+    book.classList.remove('small');
+  }, time);
 }
 
 
 // reset book to closed
 function reset(){
   intro.classList.remove('started');
+  outro.classList.remove('started');
+  newQ.classList.remove('started');
   book.classList.add('small');
   randomBtn.classList.remove('hide');
 
@@ -103,12 +123,17 @@ function reset(){
     }, Number(Math.ceil(((1 + activePage) / 8)) *1000));
 }
 
-randomBtn.addEventListener("click", function(){random(rndInt, setPrev), start();});
+randomBtn.addEventListener("click", function(){random(rndInt, setPrev, 1000), start(600);});
+
+newRndm.addEventListener("click", function(){random(rndInt, setPrev, 200), activity();});
 
 // commented out until manual reset button is placed
 // resetBtn.addEventListener("click", function(){random('0', setPrev); reset();});
 
-function random(num, after) {
+function random(num, after, delay) {
+
+  setTimeout(function () {
+
   var current = document.getElementsByClassName('active')[0];
   var activePage = Array.from(document.getElementsByClassName('page'))
     .indexOf(current);
@@ -146,12 +171,15 @@ function random(num, after) {
 
       }
     }
+
+      multiflip();
+      after(8000);
   
-    multiflip();
-    after(8000);
   }
   
   choose();
+
+  }, delay);
 
 }
 
@@ -162,21 +190,16 @@ function reveal(){
   if (pageone.classList.contains('T')){
     pageone.classList.remove('chosen','T');
     pagetwo.classList.remove('chosen','T');
+
+    pageone.setAttribute("disabled", "disabled");
+    pagetwo.setAttribute("disabled", "disabled");
   }else{
     pageone.classList.add('chosen','T');
     pagetwo.classList.add('chosen','T');
+
+    pageone.setAttribute("disabled", "");
   }
 }
-
-$('#scene')
-.on('click', '.active', nextPage)
-.on('click', '.flipped', prevPage)
-.on('click', '.reset', firstPage);
-
-$(".translate").click(function(event){
-  event.stopPropagation();
-  reveal();
-});
 
 // reset book after inactivity (in seconds)
 var windowClick = timer();
@@ -186,18 +209,34 @@ function timer() {
     return setInterval(() => (reset(), random('0', setPrev)), inactivity*1000);
   }
 }
-function inactive() {
+
+// reset inactivity timer with user interactions
+function activity() {
   clearInterval(windowClick);
   windowClick = timer();
 }
-book.addEventListener("click", function(){inactive();});
+book.addEventListener("click", function(){activity();});
+
+
+// legacy jQuery from book page turning functions
+
+$(".translate").click(function(event){
+  event.stopPropagation();
+  reveal();
+});
+
+$('#scene')
+.on('click', '.active', function( event ) {
+  nextPage(event.target.id);
+})
+.on('click', '.flipped', prevPage)
+.on('click', '.reset', firstPage);
 
 // functions for mobile swiping
 var hammertime = new Hammer($('.book')[0]);
 hammertime.on("swipeleft", nextPage);
 hammertime.on("swiperight", prevPage);
 
-// legacy jQuery from book page turning functions
 function prevPage(x) {
   $('.page div')
   .removeClass('chosen T')
@@ -209,10 +248,15 @@ function prevPage(x) {
     .siblings('.page')
     .removeClass('active');
    if (x != 'multi'){
-     setPrev(2000);
+     setPrev(1000);
   }
 }
+
 function nextPage(x) {
+  if (x == 'last'){
+    // early return for clicking on empty space after back cover
+    return;
+  }
   $('.page div')
   .removeClass('chosen T')
   $('.flipped')
@@ -225,10 +269,9 @@ function nextPage(x) {
     .addClass('active')
     .siblings('');  
   if (x != 'multi'){
-     setPrev(2000);
+     setPrev(1000);
   }
 }
-
 
 function firstPage() {
   $('.page')
