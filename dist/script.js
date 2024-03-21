@@ -10,18 +10,20 @@ var intro = document.getElementById('intro');
 var outro = document.getElementById('outro');
 var newQ = document.getElementById('newQ');
 var book = document.getElementById('scene');
+var translatebtn = document.getElementById('translate');
 
-for (var i = 0; i < toggle.length; i++) {
-   var children = toggle[i].querySelector('.translated');
+// ON PAGE TRANSLATE BUTTON
+// for (var i = 0; i < toggle.length; i++) {
+//    var children = toggle[i].querySelector('.translated');
 
-  const translateImage = new Image();
-  translateImage.src = "images/translate_button.png";
-  translateImage.classList.add("translate");
+//   const translateImage = new Image();
+//   translateImage.src = "images/translate_button.png";
+//   translateImage.classList.add("translate");
    
-   if (children != null){
-    children.before(translateImage);
-   }
-}
+//    if (children != null){
+//     children.before(translateImage);
+//    }
+// }
 
 // pick random number
 async function choose(){
@@ -46,6 +48,12 @@ async function choose(){
 };
 
 choose();
+
+function setLang(){
+  if (!translatebtn.classList.contains('english')){
+    translatebtn.classList.toggle("english");
+  }
+}
 
 // add tab index to pages
 function tabs(page){
@@ -90,7 +98,6 @@ var chosen = document.getElementsByClassName('chosen');
 function setPrev(time){
   setTimeout(() => {
     $('.active').prev().addClass('left');
-    // 'activity' currently here for first page click. Need to refine.
     activity();
     }, time);
 }
@@ -108,11 +115,15 @@ function start(time){
 
 // reset book to closed
 function reset(){
+  
+  setLang();
+
   intro.classList.remove('started');
   outro.classList.remove('started');
   newQ.classList.remove('started');
   book.classList.add('small');
   randomBtn.classList.remove('hide');
+  $('.page div').removeClass('chosen T');
 
   var current = document.getElementsByClassName('active')[0];
   var activePage = Array.from(document.getElementsByClassName('page'))
@@ -125,12 +136,16 @@ function reset(){
 
 randomBtn.addEventListener("click", function(){random(rndInt, setPrev, 1000), start(600);});
 
+translatebtn.addEventListener("click", function(){reveal(), translatebtn.classList.toggle("english");});
+
 newRndm.addEventListener("click", function(){random(rndInt, setPrev, 200), activity();});
 
 // commented out until manual reset button is placed
-// resetBtn.addEventListener("click", function(){random('0', setPrev); reset();});
+resetBtn.addEventListener("click", function(){random('0', setPrev); reset();});
 
 function random(num, after, delay) {
+
+  setLang();
 
   setTimeout(function () {
 
@@ -146,7 +161,7 @@ function random(num, after, delay) {
   var selectedSecond = pages.item(numOpen+1).getElementsByClassName('front')[0];
   
   if (activePage != numOpen){
-    if (chosen[0]){chosen[0].classList.remove('chosen');}
+    // if (chosen[0]){chosen[0].classList.remove('chosen');}
 
     //   move pages on a delay to flip through book
     let timer = ms => new Promise(res => setTimeout(res, ms))
@@ -155,13 +170,17 @@ function random(num, after, delay) {
       let direction = (activePage < numOpen) ? 'forward' : 'backward'; 
       let flips = (direction == 'forward') ? (numOpen-activePage+1): -(numOpen-activePage+1);
 
+      let speed = 150;
+
       for (let index = 0; index < flips; ++index) {
+        speed = speed > 10 ? speed - 3.5 : 10;
+
         if (direction == 'forward'){
           nextPage('multi');
         } else{
           prevPage('multi');
         }
-         await timer(150);
+         await timer(speed);
       }
 
       if (num != 0) {
@@ -179,26 +198,49 @@ function random(num, after, delay) {
   
   choose();
 
+  if (num != 0){
+    language(5000);
+  }
+
   }, delay);
 
 }
 
+function language(time){
+  setTimeout(() => {
+    var pages = $(".page div");
+
+    for (var i = 0; i < pages.length; i++) {
+      pages[i].classList.add('chosen','T');
+    }
+  }, time);
+}
+
 function reveal(){
-  var pageone = event.target.parentNode;
-  var pagetwo = document.querySelector(".left .back");
 
-  if (pageone.classList.contains('T')){
-    pageone.classList.remove('chosen','T');
-    pagetwo.classList.remove('chosen','T');
+  var pageone = document.querySelector(".left .back");
+  // var pagetwo = event.target.parentNode;
+  var pagetwo = document.querySelector(".active .front");
 
-    pageone.setAttribute("disabled", "disabled");
-    pagetwo.setAttribute("disabled", "disabled");
+  var isEnglish = document.getElementsByClassName('T');
+  if (isEnglish.length > 0) {
+    $('.page div').removeClass('chosen T');
+  // }
+  // if (pageone.classList.contains('T')){
+  //   pageone.classList.remove('chosen','T');
+  //   pagetwo.classList.remove('chosen','T');
+
+  //   pageone.setAttribute("disabled", "disabled");
+  //   pagetwo.setAttribute("disabled", "disabled");
   }else{
     pageone.classList.add('chosen','T');
     pagetwo.classList.add('chosen','T');
 
     pageone.setAttribute("disabled", "");
+    language();
   }
+
+  activity();
 }
 
 // reset book after inactivity (in seconds)
@@ -220,10 +262,11 @@ book.addEventListener("click", function(){activity();});
 
 // legacy jQuery from book page turning functions
 
-$(".translate").click(function(event){
-  event.stopPropagation();
-  reveal();
-});
+// on page translate button
+// $(".translate").click(function(event){
+//   event.stopPropagation();
+//   reveal();
+// });
 
 $('#scene')
 .on('click', '.active', function( event ) {
@@ -238,8 +281,8 @@ hammertime.on("swipeleft", nextPage);
 hammertime.on("swiperight", prevPage);
 
 function prevPage(x) {
-  $('.page div')
-  .removeClass('chosen T')
+  // $('.page div')
+  // .removeClass('chosen T')
   $('.flipped')
     .last()
     .removeClass('flipped')
@@ -257,8 +300,8 @@ function nextPage(x) {
     // early return for clicking on empty space after back cover
     return;
   }
-  $('.page div')
-  .removeClass('chosen T')
+  // $('.page div')
+  // .removeClass('chosen T')
   $('.flipped')
     .last()
     .removeClass('left')
