@@ -141,7 +141,7 @@ translatebtn.addEventListener("click", function(){reveal(), translatebtn.classLi
 newRndm.addEventListener("click", function(){random(rndInt, setPrev, 200), activity();});
 
 // commented out until manual reset button is placed
-resetBtn.addEventListener("click", function(){random('0', setPrev); reset();});
+resetBtn.addEventListener("click", function(){reset(),random('0', setPrev);});
 
 function random(num, after, delay) {
 
