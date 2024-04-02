@@ -242,7 +242,7 @@ p, button{
   position: relative;
 }
 
-.scene .book .page:first-child > div:before, #random + .scene .book .last .cover:after {
+.open .book .page:first-child > div:before, .backcover  .book .page:first-child > div:before, #random + .scene .book .last .cover:after {
   content: "";
   display: block;
   position: absolute;
@@ -255,27 +255,30 @@ p, button{
   clip-path: none;
 }
 
-#random + .scene .book .last .cover:after {
+.open .book .page:first-child > div:before
+ {
+  width: 200%;
+  height: 100%;
+}
+
+#random + .open .book .last .cover:after, 
+.backcover  .book .page:first-child > div:before {
   width: 100%;
   height: 100%;
 }
 
-.scene .book .page:first-child > div:before,
-.outro:has(#newRndm:active) ~ .scene .book .page:first-child > div:before {
-  width: 200%;
-  height: 100%;
-  // right:-90%;
-}
-
-.outro:has(#newRndm:active) ~ .scene .book .page:first-child > div:before, #random:active + .scene .book .last .cover:after {
+.outro:has(#newRndm:active) ~ .open .book .page:first-child > div:before, .outro:has(#newRndm:active) ~ .backcover .book .page:first-child > div:before, #random:active + .scene .book .last .cover:after {
   box-shadow: 0 0 0 0 #ffffff;
   position: absolute;
   border-radius: 20px;
-  // left: 0;
-  // top:0;
   opacity: .4;
   transition: 0s;
 }
+
+// .outro:has(#newRndm.backcover:active) ~ .scene .book .page:first-child > div:before{
+//   width: 100%;
+//   height: 100%;
+// }
 
 
 button{

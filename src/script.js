@@ -99,6 +99,7 @@ function setPrev(time){
   setTimeout(() => {
     $('.active').prev().addClass('left');
     activity();
+    coverCheck();
     }, time);
 }
 
@@ -142,6 +143,21 @@ newRndm.addEventListener("click", function(){random(rndInt, setPrev, 200), activ
 
 // commented out until manual reset button is placed
 resetBtn.addEventListener("click", function(){reset(),random('0', setPrev);});
+
+function coverCheck(){
+  // if back cover visible, add class to newRndm
+  let lastpage = document.querySelector('.last');
+  setTimeout(() => {
+      if(lastpage.classList.contains('flipped')) {
+        book.classList.add('backcover');
+        book.classList.remove('open');
+      }else{
+          book.classList.remove('backcover');
+          book.classList.add('open');
+      }
+    }, 2000);
+  
+}
 
 function random(num, after, delay) {
 
@@ -281,8 +297,6 @@ hammertime.on("swipeleft", nextPage);
 hammertime.on("swiperight", prevPage);
 
 function prevPage(x) {
-  // $('.page div')
-  // .removeClass('chosen T')
   $('.flipped')
     .last()
     .removeClass('flipped')
