@@ -112,7 +112,7 @@ body {
 .outro {
   font-family: "NeutralStd", sans-serif;
   font-size: Min(1.3vw, 35px);
-  line-height: Min(2vw, 30px);
+  line-height: Min(2vw, 35px);
   opacity:0;
   width:100%;
   text-align: center;
@@ -120,6 +120,7 @@ body {
   position:relative;
   .small{
     font-size: Min(1vw, 25px);
+    line-height: Min(2vw, 25px);
     margin:0 0 31px 0;
     display:block;
     clear:both;
