@@ -410,7 +410,7 @@ img.overlay {
   margin: 0 5% 5% 42%; }
 
 .scene.small .front, .scene.small .back {
-  max-height: 288px;
+  max-height: 395px;
   top: 30%;
   transition: 3s top 2s, 5s max-height; }
 
